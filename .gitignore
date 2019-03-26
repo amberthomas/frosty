@@ -1,0 +1,18 @@
+# Gunk
+.DS_Store
+*.pyc
+
+# Sublime
+sftp-config.json
+
+# Virtual env
+env/
+
+# PyCharm
+.idea/
+
+# Rsync
+rsync-ignore-file.txt
+
+# Test coverage
+.coverage
