@@ -2,8 +2,8 @@
 
 geo_json_geometry = {
   "type": "Polygon",
-  "coordinates": [
-      [
+   "coordinates": [
+          [
             [
               -149.139404296875,
               61.03302192941602
@@ -23,9 +23,9 @@ geo_json_geometry = {
             [
               -149.139404296875,
               61.03302192941602
-      ]
-    ]
-  ]
+            ]
+          ]
+        ]
 }
 
 # filter for items the overlap with our chosen geometry
@@ -40,8 +40,8 @@ date_range_filter = {
   "type": "DateRangeFilter",
   "field_name": "acquired",
   "config": {
-    "gte": "2014-01-01T00:00:00.000Z",
-    "lte": "2018-12-31T00:00:00.000Z"
+    "gte": "2017-01-30T00:00:00.000Z",
+    "lte": "2018-02-28T00:00:00.000Z"
   }
 }
 """
