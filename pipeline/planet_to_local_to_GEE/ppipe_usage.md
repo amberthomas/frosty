@@ -1,11 +1,11 @@
-
+# Using ppipe for batch Planet Downloads & GEE uploads
 There is a tool called `ppipe` that can be used for batch downloads and uploads to google earthengine. It is still under activate development at this time and I ran into several issues running it. Still, even with those problems, the utility of what it has to offer can't be ignored. So here is my quick guide to using it. For more information about set up and requirements I would look to the git page as your primary source (https://github.com/samapriya/Planet-GEE-Pipeline-CLI) and this medium article (*Updated Data Pipelines*) as a secondary (https://medium.com/@samapriyaroy/updates-data-pipelines-pip-install-ppipe-55981a65b1db). For reference, I ran this using Python 3.6 and Ubuntu 18.04
 
 Installation is relatively painless with `pip install ppipe`.
 
 After you install, you need to log into GEE and Planet.
 
-##### Hiccup 1
+#### Hiccup 1
 
 The article and git page recommends `ppipe planetkey --type “quiet" --key "you api key"`. This did not work for me, but it might for you so give it a try. Here are my setup steps. They assume that you have already installed the necessary packages for GEE and Planet API. If you have not, his first article's setup section is good for it. I included those intructions below, but here is the article for reference, remember **SKIP all steps pertaining to ppipe Installation and just use pip** (https://medium.com/planet-stories/planet-people-and-pixels-a-data-pipeline-to-link-planet-api-to-google-earth-engine-1166606445a8).
 
@@ -31,10 +31,10 @@ ppipe savedsearch --name "alaska_test1_region/test_area_2018_summer" --asset "an
 ```
 If you don't encounter errors, I wrote a little shell script to sort your assets in your local folder into separate folders. This will be necessary for later functions. The call is `./sort_assets.sh <path to local folder>` or using the example above `./sort_assets.sh /home/alt3/Documents/frosty_data/test2`.
 
-##### Hiccup 2
+#### Hiccup 2
 This was a dumb problem and completely on me. For the input assets `--asset "analytic_xml,analytic"` there can be **NO SPACES** in between the elements of the list. At this point any white space breaks it.
 
-##### Hiccup 3
+#### Hiccup 3
 After the selupload update, there are some steps not covered in the medium article. First you need to call the function `ppipe update` to get the required packages. At the time of writing this, I got this error on Ubuntu:
 
 ```
@@ -47,7 +47,7 @@ NameError: name 'article' is not defined
 Updated selenium driver for Linux64
 ```
 
-I actually need to go into `/python3.6/site-packages/ppipe/sel-latest-linux.py` and change things like so:
+I actually needed to go into `/python3.6/site-packages/ppipe/sel-latest-linux.py` and change things like so:
 
 ```
 def geckodown(directory):
@@ -78,7 +78,7 @@ ppipe metadata --asset 'PSO' --mf '/home/alt3/Documents/frosty_data/test2/xml' -
 ```
 Please note that you **must** define the full path for --mfile at the time of writing this.
 
-##### Hiccup 4
+#### Hiccup 4
 Unfortunately I got the error below and just had to go into  `site-packages/ppipe/cli_metadata.py` and change all the `with open(mfile,'wb') as csvfile:` to `with open(mfile,'w') as csvfile:`, but maybe I just needed to update a package or something.
 
 ```
@@ -103,7 +103,7 @@ Next we upload to GEE. Please note. I have used selenium in other apps before. I
 ```
 ppipe selupload --source "/home/alt3/Documents/frosty_data/test2/tif" --dest "users/amberthomas/test_upload" --manifest "PSO" --user "amber3thomas@gmail.com" --metadata "/home/alt3/Documents/frosty_data/test2/test_upload.csv"
 ```
-##### Hiccup 4
+#### Hiccup 5
 You might get a long list of `No metadata exists for image <image name>`.
 
 This is a sign that the metadata has some sort of suffix that needs to be clipped. I solved by going into `cli_metadata.py` and finding the function that would be reading in my metadata and removing the metadata suffix. Example below for code near line 88. The line will be different depending on the asset type.
