@@ -7,7 +7,23 @@ from demo_filters import anchorage_test
 
 # Search API request object
 search_endpoint_request = {
-  "item_types": ["REOrthoTile", "REScene","SkySatScene", "SkySatCollect"],
+  #"item_types": ["REOrthoTile", "REScene","SkySatScene", "SkySatCollect"],
+  "item_types": [
+   # "MYD09GQ",
+    "PSScene4Band",
+   # "SkySatScene",
+   # "PSScene3Band",
+   # "Sentinel1",
+   # "REScene",
+   # "REOrthoTile",
+   # "Sentinel2L1C",
+   # "MOD09GA",
+   # "MYD09GA",
+   # "SkySatCollect",
+   # "PSOrthoTile",
+   # "Landsat8L1G",
+   # "MOD09GQ"
+    ],
   "filter": anchorage_test
 }
 
